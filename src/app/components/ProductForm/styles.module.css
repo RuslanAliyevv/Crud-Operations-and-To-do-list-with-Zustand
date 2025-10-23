@@ -1,0 +1,52 @@
+/* .form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+} */
+
+/* .input {
+  padding: 10px 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 15px;
+} */
+
+.input:focus {
+  outline: none;
+  border-color: #0070f3;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.saveBtn {
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.saveBtn:hover {
+  background-color: #005dc1;
+}
+
+.cancelBtn {
+  background-color: #ddd;
+  color: #333;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.cancelBtn:hover {
+  background-color: #ccc;
+}
