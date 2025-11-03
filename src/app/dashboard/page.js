@@ -10,6 +10,9 @@ import MiniCart from "../components/CardCount/count";
 import SearchInput from "../components/SearchFilter/search";
 import { useCallback } from "react";
 import { showToast } from "../utils/toaster";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+// import Sidebar from "../components/Sidebar/sidebar";
 // import { debounce } from "lodash";
 
 const Dashboard = () => {
@@ -18,6 +21,18 @@ const Dashboard = () => {
   const [editData, setEditData] = useState(null);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    const user = localStorage.getItem("adminhub-user");
+    if (!user) router.push("/"); 
+  }, [router]);
+
+  const handleLogout = async () => {
+    await fetch("/api/logout", { method: "POST" });
+    localStorage.removeItem("adminhub-user");
+    router.push("/");
+  };
 
   const fetchProducts = async () => {
     setLoading(true);
@@ -62,7 +77,7 @@ const Dashboard = () => {
 
   const handleEdit = (product) => {
     setEditData(product);
-    setIsEditOpen(true); // modal aç
+    setIsEditOpen(true); 
   };
 
   const handleUpdate = async (data) => {
@@ -80,7 +95,7 @@ const Dashboard = () => {
       setLoading(false);
     }
   };
-
+  
   const handleDelete = async (id) => {
     setLoading(true);
     try {
@@ -98,44 +113,51 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>
-        <MiniCart /> Products
-      </h1>
-      <div style={{ padding: "10px", textAlign: "center" }}>
-        <SearchInput onSearch={handleSearch} placeholder="Search..." />
-      </div>
-      <ProductForm
-        onSubmit={handleAdd}
-        editData={editData}
-        onCancel={() => setEditData(null)}
-      />
-      {loading ? (
-        <div style={{ textAlign: "center", padding: "20px" }}>
-          <div className={styles.spinner}></div>
-          Loading...
+    <>
+      {/* <Sidebar /> */}
+      <div className={` relative ${styles.container}`}>
+        <button
+          className=" cursor-pointer w-20 py-2 font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-all"
+          onClick={handleLogout}
+        >
+          Cixis
+        </button>
+      <Link style={{textDecorationLine:"underline"}} className=" ml-5 text-blue-700" href  ="./filterpage">FilterPage</Link>
+
+        <h1 className={styles.title}>
+          <MiniCart /> Products
+        </h1>
+        <div style={{ padding: "10px", textAlign: "center" }}>
+          <SearchInput onSearch={handleSearch} placeholder="Search..." />
         </div>
-      ) : (
-        <ProductList
-          products={filtered}
-          onEdit={handleEdit}
-          onDelete={handleDelete}
+        <ProductForm
+          onSubmit={handleAdd}
+          editData={editData}
+          onCancel={() => setEditData(null)}
         />
-      )}
-      {isEditOpen && editData && (
-        <EditModal
-          product={editData}
-          onClose={() => setIsEditOpen(false)}
-          onSubmit={handleUpdate}
-          loading={loading}
-        />
-      )}
-      <Toaster position="top-right" reverseOrder={false} />{" "}
-    </div>
+        {loading ? (
+          <div style={{ textAlign: "center", padding: "20px" }}>
+            <div className={styles.spinner}></div>
+            Loading...
+          </div>
+        ) : (
+          <ProductList
+            products={filtered}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
+        )}
+        {isEditOpen && editData && (
+          <EditModal
+            product={editData}
+            onClose={() => setIsEditOpen(false)}
+            onSubmit={handleUpdate}
+            loading={loading}
+          />
+        )}
+        <Toaster position="top-right" reverseOrder={false} />
+      </div>
+    </>
   );
 };
 export default Dashboard;
-
-
-
-

@@ -20,8 +20,8 @@ const ProductForm = ({ onSubmit, editData, onCancel }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (
-      form.title.trim() ||
-      form.price ||
+      form.title.trim() &&
+      form.price &&
       form.category.trim() ||
       form.description.trim()
     ) {

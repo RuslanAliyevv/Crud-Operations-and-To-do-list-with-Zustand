@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./styles.module.css";
 import useCartStore from "../Zustand/store";
 import { motion, AnimatePresence } from "framer-motion";
-import { showToast } from "@/app/utils/toaster";
+import { showToast } from "../../utils/toaster";
 const ProductList = ({ products, onEdit, onDelete }) => {
   const addToCart = useCartStore((state) => state.addToCart);
 

@@ -2,10 +2,16 @@
 import React from "react";
 import useCartStore from "../components/Zustand/store";
 import styles from "./styles.module.css";
+import { useRouter } from "next/navigation";
 
 const CartPage = () => {
+  const router = useRouter();
+  const handleLogout = async () => {
+    router.push("/dashboard");
+  };
+
   const { cart, removeFromCart, clearCart } = useCartStore();
-  console.log(cart,"Mehsullar")
+  console.log(cart, "Mehsullar");
   if (cart.length === 0)
     return (
       <p
@@ -25,7 +31,17 @@ const CartPage = () => {
 
   return (
     <div className={styles.cart}>
-      <h1>Your Products 🛒</h1>
+      <div
+        className={`${styles.logout} flex flex-row justify-between items-center`}
+      >
+        <h1>Your Products 🛒</h1>
+        <button
+          className="!cursor-pointer !w-20  !font-semibold !text-white !bg-blue-600 !rounded-lg hover:!bg-blue-700 !transition-all !-mt-4"
+          onClick={handleLogout}
+        >
+          Cixis
+        </button>
+      </div>
       <ul>
         {cart.map((item) => (
           <li key={item.id}>
