@@ -29,7 +29,7 @@ export default function Page() {
     fetchData();
   }, []);
 
-  // 🔹 Filtrləmə funksiyası
+  // 🔹 Filter Function
   const handleFilterChange = (filters) => {
     let filtered = data;
 
@@ -59,7 +59,7 @@ export default function Page() {
           🔍 Searching...
         </h1>
 
-        {/* Filter Bölməsi */}
+        {/* Filter Zone */}
         <div className="mb-10 bg-gradient-to-r from-blue-50 to-indigo-50 border border-indigo-100 rounded-xl p-6 shadow-inner">
           <FilterBar
             categories={categories}
@@ -67,7 +67,7 @@ export default function Page() {
           />
         </div>
 
-        {/* Nəticə Kartları */}
+        {/* Result Card */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredData.length > 0 ? (
             filteredData.map((item) => (

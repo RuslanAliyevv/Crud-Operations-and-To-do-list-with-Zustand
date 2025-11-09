@@ -12,6 +12,7 @@ import { useCallback } from "react";
 import { showToast } from "../utils/toaster";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import ChatWindow from "../components/Chatbot/chatbot";
 // import Sidebar from "../components/Sidebar/sidebar";
 // import { debounce } from "lodash";
 
@@ -23,10 +24,12 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
-    const user = localStorage.getItem("adminhub-user");
-    if (!user) router.push("/"); 
-  }, [router]);
+ 
+
+  // useEffect(() => {
+  //   const user = localStorage.getItem("adminhub-user");
+  //   if (!user) router.push("/"); 
+  // }, [router]);
 
   const handleLogout = async () => {
     await fetch("/api/logout", { method: "POST" });
@@ -40,7 +43,6 @@ const Dashboard = () => {
       const res = await api.get("/products");
       setProducts(res.data);
       setFiltered(res.data);
-      console.log(res.data);
     } catch (error) {
       showToast.error("Məhsullar yüklənmədi!");
     } finally {
@@ -123,7 +125,7 @@ const Dashboard = () => {
           Cixis
         </button>
       <Link style={{textDecorationLine:"underline"}} className=" ml-5 text-blue-700" href  ="./filterpage">FilterPage</Link>
-
+      <ChatWindow />
         <h1 className={styles.title}>
           <MiniCart /> Products
         </h1>
