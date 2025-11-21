@@ -2,13 +2,18 @@
 import { NextResponse } from "next/server";
 
 export async function DELETE(req: Request, { params }: { params: { id: string } }) {
-  const { role } = await req.json(); 
+  const id = params.id;
+
+  // Frontend-də role localStorage-dandır, request içində gəlmir
+  const url = new URL(req.url);
+  const role = url.searchParams.get("role"); // ?role=admin
 
   if (role !== "admin") {
-    return NextResponse.json({ success: false, message: "Only admin delete" }, { status: 403 });
+    return NextResponse.json(
+      { success: false, message: "Only admin can delete" },
+      { status: 403 }
+    );
   }
 
-  const id = params.id;
- 
   return NextResponse.json({ success: true, deletedId: id });
 }

@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import Login from "../app/admin-user-dashboard/page";
 import DataTable from "../app/components/DataTable/table";
 // import Login from "./auth/login/page";
+
 export default function Home() {
   const [logged, setLogged] = useState(false);
 

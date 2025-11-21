@@ -53,13 +53,15 @@ export default function Page() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-10 px-6">
-      <div className="max-w-6xl mx-auto bg-white rounded-2xl shadow-lg p-8 border border-gray-200">
+    <div className="min-h-screen flex bg-gray-100">
+    {/* Sağ tərəfdəki əsas content */}
+    <div className="flex-1 ml-64 py-10 px-10 transition-all duration-300">
+      <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-200">
         <h1 className="text-3xl font-bold text-gray-800 mb-8 text-center tracking-tight">
           🔍 Searching...
         </h1>
 
-        {/* Filter Zone */}
+        {/* Filter Bar */}
         <div className="mb-10 bg-gradient-to-r from-blue-50 to-indigo-50 border border-indigo-100 rounded-xl p-6 shadow-inner">
           <FilterBar
             categories={categories}
@@ -67,7 +69,7 @@ export default function Page() {
           />
         </div>
 
-        {/* Result Card */}
+        {/* Nəticələr */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredData.length > 0 ? (
             filteredData.map((item) => (
@@ -114,5 +116,6 @@ export default function Page() {
         </div>
       </div>
     </div>
+  </div>
   );
 }

@@ -1,22 +1,28 @@
 "use client";
 import React, { useState } from "react";
 import axios from "axios";
+import Link from "next/link";
 
 export default function Login({ onLogin }) {
-  const [email, setEmail] = useState("");
+   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState("");
 
   async function handleSubmit(e) {
     e.preventDefault();
     setErr("");
+
     try {
       const res = await axios.post("/api/loginroles", { email, password });
+
       if (res.data?.success) {
-        const { role, name } = res.data.user;
+        const { name, role, status, privileges } = res.data.user;
+
         localStorage.setItem("userRole", role);
         localStorage.setItem("userName", name);
         localStorage.setItem("userStatus", status);
+        localStorage.setItem("userPrivileges", JSON.stringify(privileges));
+
         onLogin();
       } else {
         setErr("Email or password wrong");
@@ -63,7 +69,7 @@ export default function Login({ onLogin }) {
             type="submit"
             className="w-full py-2 font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 active:scale-[0.98] transition-all shadow-md"
           >
-        Enter
+            Enter
           </button>
 
           {err && (
@@ -77,6 +83,8 @@ export default function Login({ onLogin }) {
             <ul className="list-disc ml-6 mt-1 space-y-1">
               <li>admin@portal.com / 12345</li>
               <li>user@portal.com / 54321</li>
+              <li>user2@mail.com / 11111</li>
+              <li>user3@mail.com / 22222</li>
             </ul>
           </div>
 
@@ -90,7 +98,7 @@ export default function Login({ onLogin }) {
           >
             Copy the Admin
           </button>
-          
+
           <button
             type="button"
             onClick={() => {
@@ -99,12 +107,15 @@ export default function Login({ onLogin }) {
             }}
             className="block w-full text-sm text-center text-blue-600 hover:text-blue-700 underline transition"
           >
-           Copy the User
+            Copy the User
           </button>
         </form>
 
         <p className="text-xs text-center text-gray-500 mt-4">
-          © 2025 Admin Portal 
+          © 2025 Admin Portal
+          <Link className=" ml-3 underline  text-blue-600" href="/dashboard">
+            Dashboard
+          </Link>
         </p>
       </div>
     </div>
